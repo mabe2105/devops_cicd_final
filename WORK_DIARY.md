@@ -7,6 +7,11 @@ Max Bechtel
 
 ## Work Diary
 
-### Day 1
+### Day 1 22/11
+Planning during the night together
+Setting up main branch
+ 
+
+
 
 ### Day 3
