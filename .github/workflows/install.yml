@@ -3,7 +3,7 @@ name: Install
 on:
   workflow_call:
     secrets:
-      ghcr_token: 
+      HGCR_TOKEN: 
         required: true
 
 jobs:
