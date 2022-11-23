@@ -23,6 +23,7 @@ jobs:
         pip install -r requirements.txt        
 
   lint:
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
     - name: Lint with flake8 # stop the build if there are Python syntax errors or undefined names
