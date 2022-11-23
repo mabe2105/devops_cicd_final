@@ -4,7 +4,7 @@ on:
   workflow_call:
     secrets:
       ghcr_token: 
-        required: false
+        required: true
 
 jobs:
   install:
