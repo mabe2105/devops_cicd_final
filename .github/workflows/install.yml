@@ -21,14 +21,18 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+    - run: pwd
+    - run: ls
 
 
   lint:
     needs: [build]
     runs-on: ubuntu-latest
     steps:
-    - name: Checked out repository code
-      uses: actions/checkout@v3
+    - run: pwd
+    - run: ls
+    #- name: Checked out repository code
+    #  uses: actions/checkout@v3
     - name: Lint with flake8 # stop the build if there are Python syntax errors or undefined names
       run: |
         flake8 shop_app --count --select=E9,F63,F7,F82 --show-source --statistics
