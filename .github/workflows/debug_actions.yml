@@ -1,0 +1,8 @@
+name: debug
+
+on:
+  [push, commit]
+
+jobs:
+  call_workflow:
+    uses: ./.github/workflows/install.yml

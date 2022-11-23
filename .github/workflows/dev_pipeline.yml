@@ -1,9 +1,0 @@
-# this checks merges into main with PR
-
-name: Checks merge PR
-on: [ merge, commit, push ] 
-jobs:
-  Checking-merge:
-    runs-on:
-      matrix: [ ubuntu-latest, macos-latest, windows-latest ]
-      steps:

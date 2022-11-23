@@ -1,0 +1,13 @@
+name: Install
+
+on:
+  workflow_call:
+    secrets:
+      ghcr_token: 
+        required: false
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "blabla"
