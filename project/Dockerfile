@@ -2,7 +2,7 @@ FROM python:3.11-slim
 
 WORKDIR /app
 # First we copy the requirements.txt
-COPY requirements.txt .
+COPY ./project/requirements.txt .
 RUN pip install -r requirements.txt
 
 # Then we copy the script just before its used, this allows the previous build to be cached
