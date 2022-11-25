@@ -1,0 +1,12 @@
+name: Prevent Direct Push
+
+on:
+  push: 
+    branches: [ main ]
+
+jobs:
+  Prevent:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Fail
+      run: exit 1
