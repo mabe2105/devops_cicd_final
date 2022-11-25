@@ -49,6 +49,9 @@ jobs:
   test:
     needs: [build]
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./project
 
     strategy:
       matrix:
@@ -76,6 +79,9 @@ jobs:
   deploy:
     needs: [test]
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./project
 
     steps:
     - name: ghcr.io build tag push
