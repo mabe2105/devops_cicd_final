@@ -4,7 +4,6 @@ on:
   push:
     branches-ignore:
     - 'main'
-    #- 'dev'
   pull_request:
     branches:
     - 'dev'
@@ -16,10 +15,13 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./project
 
     strategy:
       matrix:
-        python-version: [ 3.6, 3.9, 3.10, 3.11 ] 
+        python-version: [ "3.10" ] 
 
     steps:
     - name: Checkout
