@@ -8,6 +8,6 @@ jobs:
   Warning:
     runs-on: ubuntu-latest
     steps:
-    - name: Warning
+    - name: Warning Dont Push Directly to Main!!!
       run: exit 1
 
