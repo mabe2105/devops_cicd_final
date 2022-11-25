@@ -74,7 +74,7 @@ jobs:
 
     - name: Unit-tests check + coverage
       run: |
-        pytests --cov=shop_app tests/unit
+        pytest --cov=shop_app tests/unit
   
   deploy:
     needs: [test]
