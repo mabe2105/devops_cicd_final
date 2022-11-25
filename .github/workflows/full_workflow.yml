@@ -84,6 +84,7 @@ jobs:
         working-directory: ./project
 
     steps:
+    - run: ls
     - name: ghcr.io build tag push
       uses: mr-smithers-excellent/docker-build-push@v3
       with:
