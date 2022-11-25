@@ -18,3 +18,5 @@ Looked at options with actions
 TODO: keep at it tonight
 
 ### Day 3
+did some late night workflow tinkering but nothing complete
+will check with max on friday (let's goooooo)
