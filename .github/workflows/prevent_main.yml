@@ -10,3 +10,4 @@ jobs:
     steps:
     - name: Fail
       run: exit 1
+
