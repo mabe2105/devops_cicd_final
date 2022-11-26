@@ -83,7 +83,6 @@ jobs:
       uses: mr-smithers-excellent/docker-build-push@v3
       with:
         image: mabe2105/shop_app
-        pushImage: false
         registry: ghcr.io
         dockerfile: ./project/Dockerfile
         username: ${{ secrets.GHCR_USER }}
