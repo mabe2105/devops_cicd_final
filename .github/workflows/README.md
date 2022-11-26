@@ -25,4 +25,4 @@ Jobs:
 * Deploy (?)
 
 ### Description:
-This workflow will trigger for any pull request into **main**. It will build and then test the app with a test matrix. The results of this workflow are visible in the pull request. 
+This workflow will trigger for any pull request into **main**. It will build and then test the app with a test matrix. The results of this workflow are visible in the pull request.
