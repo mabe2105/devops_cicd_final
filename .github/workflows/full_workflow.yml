@@ -7,17 +7,17 @@ on:
 
 permissions:
   contents: read
-  
+
 jobs:
   build:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./project
+        working-directory: ./src
 
     strategy:
       matrix:
-        python-version: [ "3.10" ] 
+        python-version: [ "3.10" ]
 
     steps:
     - name: Checkout
@@ -38,17 +38,17 @@ jobs:
     - name: Pylint check
       run: |
         pylint --errors-only shop_app
-  
+
   test:
     needs: [build]
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./project
+        working-directory: ./src
 
     strategy:
       matrix:
-        python-version: [ "3.10" ] 
+        python-version: [ "3.10" ]
 
     steps:
     - name: Checkout python for test
@@ -60,7 +60,7 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
-    
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
@@ -69,13 +69,13 @@ jobs:
     - name: Unit-tests check + coverage
       run: |
         pytest --cov=shop_app tests/unit
-  
+
   deploy:
     needs: [test]
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./project
+        working-directory: ./src
 
     steps:
     - name: Checkout for deploy
@@ -84,12 +84,11 @@ jobs:
         fetch-depth: 0
 
     - name: ghcr.io build tag push
-      uses: mr-smithers-excellent/docker-build-push@v3
+      uses: mr-smithers-excellent/docker-build-push@v5.8
       with:
-        image: mabe2105/shop_app
+        image: shop_app
+        addLatest: true
         registry: ghcr.io
-        dockerfile: ./project/Dockerfile
+        dockerfile: ./src/Dockerfile
         username: ${{ secrets.GHCR_USER }}
         password: ${{ secrets.GHCR_TOKEN }}
-
-
