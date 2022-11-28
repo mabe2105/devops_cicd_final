@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: shop-app-pod
+  labels:
+    environment: test
+    app: shop_app
+spec:
+  containers:
+    - name: shop-app
+      image: ghcr.io/mabe2105/shop_app:latest
+  imagePullSecrets:
+    - name: regcred
