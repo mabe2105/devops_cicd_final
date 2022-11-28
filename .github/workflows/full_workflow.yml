@@ -84,7 +84,7 @@ jobs:
         fetch-depth: 0
 
     - name: ghcr.io build tag push
-      uses: mr-smithers-excellent/docker-build-push@v3
+      uses: mr-smithers-excellent/docker-build-push@v5.8
       with:
         image: mabe2105/shop_app
         addLatest: true
