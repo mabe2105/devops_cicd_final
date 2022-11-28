@@ -86,7 +86,7 @@ jobs:
     - name: ghcr.io build tag push
       uses: mr-smithers-excellent/docker-build-push@v5.8
       with:
-        image: mabe2105/shop_app
+        image: shop_app
         addLatest: true
         registry: ghcr.io
         dockerfile: ./src/Dockerfile
