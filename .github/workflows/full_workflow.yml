@@ -88,6 +88,5 @@ jobs:
       with:
         image: mabe2105/shop_app
         registry: ghcr.io
-        dockerfile: Dockerfile
         username: ${{ secrets.GHCR_USER }}
         password: ${{ secrets.GHCR_TOKEN }}
