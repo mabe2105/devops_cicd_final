@@ -1,0 +1,22 @@
+version: "3.7"
+services:
+  testapp:
+    image: ghcr.io/mabe2105/shop_app:latest
+    container_name: testapp
+    ports:
+      - "48800:5000"
+    networks:
+      default:
+
+  selenium:
+    image: selenium/standalone-firefox:4.6.0-20221104
+    container_name: selenium
+    shm_size: 2gb
+    ports:
+      - "4444:4444"
+      - "7900:7900"
+    networks:
+      default:
+
+networks:
+    default:
