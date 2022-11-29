@@ -50,6 +50,5 @@ def test_website():
 
     assert driver.current_url == f"{url}/auth/register"
 
-    
-    driver.quit()
 
+    driver.quit()
