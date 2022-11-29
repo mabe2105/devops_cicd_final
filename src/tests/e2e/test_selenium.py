@@ -51,9 +51,4 @@ def test_website():
     assert driver.current_url == f"{url}/auth/register"
 
 
-    driver.get(f"{url}/nothing")
-
-    assert driver.current_url == f"{url}/auth/register"
-
-
     driver.quit()

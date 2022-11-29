@@ -134,8 +134,16 @@ jobs:
     - name: docker-compose up
       run: docker-compose -f tests/e2e/docker-compose.yml up -d
 
+    - name: Setup Database.
+      run: |
+        apt update
+        apt install mysql-client-core-8.0
+        mysql -h 127.0.0.1 -u username -ppassword example < "../../sql/0000-create-table.sql"
+        mysql -h 127.0.0.1 -u username -ppassword example < "../../sql/0001-insert-data.sql"
+        mysql -h 127.0.0.1 -u username -ppassword example < "../../sql/0002-create-user.sql"
+
     - name: Wait 4 Selenium.
-      run: sleep 5
+      run: sleep 4
 
     - name: pytest e2e
       run: pytest ./tests/e2e/

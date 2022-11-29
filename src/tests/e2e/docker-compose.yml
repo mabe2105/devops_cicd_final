@@ -1,10 +1,31 @@
 version: "3.7"
 services:
+
+  testdb:
+    image: mysql:8
+    container_name: testdb
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_DATABASE=example
+      - MYSQL_USER=username
+      - MYSQL_PASSWORD=password
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+
+    networks:
+      default:
+
+
   testapp:
     image: ghcr.io/mabe2105/mabe2105/devops_cicd_final/shop_app:latest
     container_name: testapp
     ports:
       - "48800:5000"
+    environment:
+      #- MYSQL_HOST=127.0.0.1
+      - MYSQL_HOST=testdb
+      - MYSQL_PASSWORD=password
+
     networks:
       default:
 
