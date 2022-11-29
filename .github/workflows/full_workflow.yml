@@ -136,8 +136,8 @@ jobs:
 
     - name: Setup Database.
       run: |
-        apt update
-        apt install mysql-client-core-8.0
+        sudo apt update
+        sudo apt install mysql-client-core-8.0
         mysql -h 127.0.0.1 -u username -ppassword example < "./sql/0000-create-table.sql"
         mysql -h 127.0.0.1 -u username -ppassword example < "./sql/0001-insert-data.sql"
         mysql -h 127.0.0.1 -u username -ppassword example < "./sql/0002-create-user.sql"
