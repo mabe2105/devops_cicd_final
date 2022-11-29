@@ -2,8 +2,8 @@ name: Python app
 
 on:
   push:
-    branches-ignore:
-    - 'main'
+    # branches-ignore:
+    # - 'main'
 
 permissions:
   contents: read
@@ -36,7 +36,8 @@ jobs:
         pip install -r requirements-dev.txt
 
     - name: Pylint check
-      run: |
+      run: | 
+        ./tests/e2e/docker-compose.yml
         pylint --errors-only shop_app
 
   test:
@@ -92,3 +93,29 @@ jobs:
         dockerfile: ./src/Dockerfile
         username: ${{ secrets.GHCR_USER }}
         password: ${{ secrets.GHCR_TOKEN }}
+
+  e2e:
+    needs: [deploy]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./src
+    
+    steps:
+    - name: Checkout for deploy
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - uses: KengoTODA/actions-setup-docker-compose@main
+      with:
+        version: '1.29.2'
+
+    - name: docker-compose up
+      run: docker-compose -f ./tests/e2e/docker-compose.yml up -d
+
+    - name: pytest e2e
+      run: pytest ./tests/e2e/
+
+    - name: remove docker-compose
+      run: docker-compose -f ./tests/e2e/docker-compose.yml rm -fsv
