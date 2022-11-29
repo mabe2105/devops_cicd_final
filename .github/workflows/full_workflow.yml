@@ -101,6 +101,18 @@ jobs:
         working-directory: ./src
     
     steps:
+
+    - name: Set up Python 3.x
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements-dev.txt
+
+        
     - name: Checkout for deploy
       uses: actions/checkout@v3
       with:
@@ -118,7 +130,7 @@ jobs:
         password: ${{ secrets.GHCR_TOKEN }}
 
     - name: docker-compose up
-      run: docker-compose -f ./tests/e2e/docker-compose.yml up -d
+      run: docker-compose -f tests/e2e/docker-compose.yml up -d
 
     - name: pytest e2e
       run: pytest ./tests/e2e/
