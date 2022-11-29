@@ -102,7 +102,7 @@ jobs:
     defaults:
       run:
         working-directory: ./src
-    
+
     steps:
 
     - name: Checkout for deploy
