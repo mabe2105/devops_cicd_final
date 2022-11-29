@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   testapp:
-    image: ghcr.io/mabe2105/devops_cicd_final/shop_app:latest
+    image: ghcr.io/mabe2105/mabe2105/devops_cicd_final/shop_app:latest
     container_name: testapp
     ports:
       - "48800:5000"
