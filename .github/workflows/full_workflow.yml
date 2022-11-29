@@ -36,8 +36,7 @@ jobs:
         pip install -r requirements-dev.txt
 
     - name: Pylint check
-      run: | 
-        ./tests/e2e/docker-compose.yml
+      run: |
         pylint --errors-only shop_app
 
   test:
