@@ -35,4 +35,4 @@ jobs:
       - name: Pytest
         run: |
           pip install -r ./src/requirements-dev.txt
-          pytest tests/
+          pytest ./src/tests/
