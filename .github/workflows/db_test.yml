@@ -18,14 +18,11 @@ jobs:
       - name: Build docker image
         run: docker build . --file ./src/Dockerfile --tag sql-db
 
-      - name: import db (degub)
+      - name: import db 
         run: |
-          sudo apt update
-          sudo apt install tree
-          tree
-          mysql - 127.0.0.1 -u username -ppassword example < "./src/sql/0000-create-table.sql"
-          mysql - 127.0.0.1 -u username -ppassword example < "./src/sql/0001-insert-data.sql"
-          mysql - 127.0.0.1 -u username -ppassword example < "./src/sql/0002-create-user.sql"
+          mysql -h 127.0.0.1 -u username -ppassword example < "./src/sql/0000-create-table.sql"
+          mysql -h 127.0.0.1 -u username -ppassword example < "./src/sql/0001-insert-data.sql"
+          mysql -h 127.0.0.1 -u username -ppassword example < "./src/sql/0002-create-user.sql"
 
       - name: Verify database works
         run: |
