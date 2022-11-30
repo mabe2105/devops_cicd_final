@@ -12,18 +12,23 @@ jobs:
         working-directory: ./src
 
     steps:
-    
+
     - name: Checkout for deploy
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
+
+    - id: get_version
+      uses: battila7/get-version-action@v2
 
     - name: ghcr.io build tag push
       uses: mr-smithers-excellent/docker-build-push@v5.8
       with:
         image: devops_cicd_final/shop_app
         addLatest: true
+        tags: ${{ steps.get_version.outputs.version-without-v }}
         registry: ghcr.io
         dockerfile: ./src/Dockerfile
         username: ${{ secrets.GHCR_USER }}
         password: ${{ secrets.GHCR_TOKEN }}
+        
