@@ -17,8 +17,9 @@ jobs:
         with:
           images: ghcr.io/devops_cicd_final/shop_app_test
       - run: |
-          echo ${{ steps.meta.outputs.tags }}
-          echo ${{ steps.meta.outputs.labels }}
+          echo "${{ steps.meta.outputs.tags }}"
+          echo "${{ steps.meta.outputs.labels }}"
+          echo "${{ steps.meta }}"
 
 
     # - name: Checkout
