@@ -3,56 +3,56 @@ name: debug
 on: push
 
 jobs:
-  debug:
-    runs-on: ubuntu-latest
-    steps:
-      - name: DUMP github context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
+  # debug:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: DUMP github context
+  #       env:
+  #         GITHUB_CONTEXT: ${{ toJson(github) }}
+  #       run: echo "$GITHUB_CONTEXT"
 
-  check-version:
-    runs-on: ubuntu-latest
-    steps:
+  # check-version:
+  #   runs-on: ubuntu-latest
+  #   steps:
 
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+  #     - uses: actions/checkout@v3
+  #       with:
+  #         fetch-depth: 0
 
-      - uses: rickstaa/action-get-semver@v1
-        id: get_semver
-        with:
-          bump_level: "minor"
-      - name: Print current and next version
-        run: |
-          echo "Current version: ${{ steps.get_semver.outputs.current_version  }}"
-          echo "Next version: ${{ steps.get_semver.outputs.next_version }}"
+  #     - uses: rickstaa/action-get-semver@v1
+  #       id: get_semver
+  #       with:
+  #         bump_level: "minor"
+  #     - name: Print current and next version
+  #       run: |
+  #         echo "Current version: ${{ steps.get_semver.outputs.current_version  }}"
+  #         echo "Next version: ${{ steps.get_semver.outputs.next_version }}"
 
-  newone:
-    runs-on: ubuntu-latest
-    steps:
+  # newone:
+  #   runs-on: ubuntu-latest
+  #   steps:
 
-    - uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
+  #   - uses: actions/checkout@v3
+  #     with:
+  #       fetch-depth: 0
 
-    - id: semver-tag
-      uses: gandarez/semver-action@v1.0.1
-    - name: "Created tag"
-      run: echo "tag ${{ steps.semver-tag.outputs.semver_tag }}"
+  #   - id: semver-tag
+  #     uses: gandarez/semver-action@v1.0.1
+  #   - name: "Created tag"
+  #     run: echo "tag ${{ steps.semver-tag.outputs.semver_tag }}"
 
-  anotherone:
-    runs-on: ubuntu-latest
-    steps:
+  # anotherone:
+  #   runs-on: ubuntu-latest
+  #   steps:
 
-    - uses: actions/checkout@v3
+  #   - uses: actions/checkout@v3
 
-    - run: |
-        git tag -l
+  #   - run: |
+  #       git tag -l
 
 
   treefourtree:
-    runs-on: ubuntu.latest
+    runs-on: ubuntu-latest
     steps:
       - uses: little-core-labs/get-git-tag@v3.0.1
         id: tagName
