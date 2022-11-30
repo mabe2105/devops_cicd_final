@@ -32,6 +32,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - id: semver-tag
-      uses: gandarez/semver-action@vlatest
+      uses: gandarez/semver-action@v1.0.1
     - name: "Created tag"
       run: echo "tag ${{ steps.semver-tag.outputs.semver_tag }}"
