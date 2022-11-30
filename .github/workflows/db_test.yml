@@ -18,8 +18,8 @@ jobs:
 
       - name: Verify database works
         run: |
-        mysql --version
-        mysql -h127.0.0.1 -Dexample -u username -ppassword -e 'select * from products;'
+          mysql --version
+          mysql -h127.0.0.1 -Dexample -u username -ppassword -e 'select * from products;'
       
       - name: Run flask server
         run: docker run -d --network my-network -e MYSQL_HOST=mysql -e MYSQL_PASSWORD=password -p 5000:5000 sql-db

@@ -1,7 +1,7 @@
 name: Merge Request
 
 on: 
-  merge_request:
+  pull_request:
     branch: [ main ]
 
 jobs:
