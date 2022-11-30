@@ -14,9 +14,11 @@ jobs:
   check-version:
     runs-on: ubuntu-latest
     steps:
+
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
+
       - uses: rickstaa/action-get-semver@v1
         id: get_semver
         with:
@@ -25,3 +27,9 @@ jobs:
         run: |
           echo "Current version: ${{ steps.get_semver.outputs.current_version  }}"
           echo "Next version: ${{ steps.get_semver.outputs.next_version }}"
+
+  newone:
+    - id: semver-tag
+      uses: gandarez/semver-action@vlatest
+    - name: "Created tag"
+      run: echo "tag ${{ steps.semver-tag.outputs.semver_tag }}"
