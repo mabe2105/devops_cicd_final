@@ -1,0 +1,29 @@
+name: Publish
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./src
+
+    steps:
+    
+    - name: Checkout for deploy
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: ghcr.io build tag push
+      uses: mr-smithers-excellent/docker-build-push@v5.8
+      with:
+        image: devops_cicd_final/shop_app
+        addLatest: true
+        registry: ghcr.io
+        dockerfile: ./src/Dockerfile
+        username: ${{ secrets.GHCR_USER }}
+        password: ${{ secrets.GHCR_TOKEN }}
