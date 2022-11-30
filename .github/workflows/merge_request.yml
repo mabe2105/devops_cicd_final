@@ -33,7 +33,7 @@ jobs:
       
     - name: Unit-tests check + coverage
       run: | 
-        pytest --cov=shop_app test/unit
+        pytest --cov=shop_app ./tests/unit
   
   e2e:
     runs-on: ubuntu-latest
