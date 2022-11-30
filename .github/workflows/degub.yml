@@ -55,8 +55,8 @@ jobs:
           echo "${{ steps.meta.outputs.labels }}"
           echo "${{ steps.meta }}"
           echo "${{ steps }}"
-          git tag -l
-          git tag
+          echo $(git tag -l)
+          echo $(git tag)
 
 
 
