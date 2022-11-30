@@ -21,14 +21,20 @@ jobs:
     - id: get_version
       uses: battila7/get-version-action@v2
 
+    - name: DEBUG
+      run: |
+        echo ${{ steps.get_version.outputs.version-without-v }}
+        echo ${{ github.ref }}
+        echo ${{ steps.get_version.outputs.version }}
+        echo ${{ github }}
+
     - name: ghcr.io build tag push
       uses: mr-smithers-excellent/docker-build-push@v5.8
       with:
         image: devops_cicd_final/shop_app
+        tags: ${{ steps.get_version.outputs.version-without-v }}, latest
         addLatest: true
-        tags: ${{ steps.get_version.outputs.version-without-v }}
         registry: ghcr.io
         dockerfile: ./src/Dockerfile
         username: ${{ secrets.GHCR_USER }}
         password: ${{ secrets.GHCR_TOKEN }}
-        
