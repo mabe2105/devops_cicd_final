@@ -18,6 +18,11 @@ jobs:
       - name: Build docker image
         run: docker build . --file ./src/Dockerfile --tag sql-db
 
+      - name: import db (debug)
+        run: |
+          ls
+          pwd
+
       - name: Verify database works
         run: |
           mysql --version
