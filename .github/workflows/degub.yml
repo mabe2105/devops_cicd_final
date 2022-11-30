@@ -40,3 +40,14 @@ jobs:
       uses: gandarez/semver-action@v1.0.1
     - name: "Created tag"
       run: echo "tag ${{ steps.semver-tag.outputs.semver_tag }}"
+
+  anotherone:
+    runs-on: ubuntu-latest
+    steps:
+
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - run: |
+      git -l
