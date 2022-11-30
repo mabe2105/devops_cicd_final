@@ -23,9 +23,9 @@ jobs:
           sudo apt update
           sudo apt install tree
           tree
-          mysql - 127.0.0.1 -u username -ppassword example < "./scr/sql/0000-create-table.sql"
-          mysql - 127.0.0.1 -u username -ppassword example < "./scr/sql/0001-insert-data.sql"
-          mysql - 127.0.0.1 -u username -ppassword example < "./scr/sql/0002-create-user.sql"
+          mysql - 127.0.0.1 -u username -ppassword example < "./src/sql/0000-create-table.sql"
+          mysql - 127.0.0.1 -u username -ppassword example < "./src/sql/0001-insert-data.sql"
+          mysql - 127.0.0.1 -u username -ppassword example < "./src/sql/0002-create-user.sql"
 
       - name: Verify database works
         run: |
