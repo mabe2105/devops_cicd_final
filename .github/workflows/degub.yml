@@ -4,24 +4,53 @@ on: push
 
 jobs:
 
-  treefourtree:
+  build:
+
     runs-on: ubuntu-latest
+
     steps:
-      - uses: little-core-labs/get-git-tag@v3.0.1
-        id: tagName
-        # with:
-        #   tagRegex: "foobar-(.*)"  # Optional. Returns specified group text as tag name. Full tag string is returned if regex is not defined.
-        #   tagRegexGroup: 1 # Optional. Default is 1.
+    - name: Checkout
+      uses: actions/checkout@v2
 
-      - name: output 
-        run: |
-          echo ${{ steps.tagName.outputs.tag }}
-          echo ${{ steps.tagName.outputs }}
-          echo ${{ steps.tagName }}
+    - name: Log into the Container registry
+      uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+      with:
+        registry: ghcr.io
+        username: ${{ secrets.GHCR_USER }}
+        password: ${{ secrets.GHCR_TOKEN }}
 
-      - name: Some other step # Output usage example
-        with:
-          tagname: ${{ steps.tagName.outputs.tag }}
+    - name: Extract metadata for the Docker image
+      id: meta
+      uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+      with:
+        images: ghcr.io/devops_cicd_final/shop_app_test
+
+    - name: Build and push the Docker image
+      uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+      with:
+        context: .
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+
+  # treefourtree:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: little-core-labs/get-git-tag@v3.0.1
+  #       id: tagName
+  #       # with:
+  #       #   tagRegex: "foobar-(.*)"  # Optional. Returns specified group text as tag name. Full tag string is returned if regex is not defined.
+  #       #   tagRegexGroup: 1 # Optional. Default is 1.
+
+  #     - name: output 
+  #       run: |
+  #         echo ${{ steps.tagName.outputs.tag }}
+  #         echo ${{ steps.tagName.outputs }}
+  #         echo ${{ steps.tagName }}
+
+  #     - name: Some other step # Output usage example
+  #       with:
+  #         tagname: ${{ steps.tagName.outputs.tag }}
 
 
   # debug:
