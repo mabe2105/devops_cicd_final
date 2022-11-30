@@ -29,6 +29,8 @@ jobs:
           echo "Next version: ${{ steps.get_semver.outputs.next_version }}"
 
   newone:
+    runs-on: ubuntu-latest
+    steps:
     - id: semver-tag
       uses: gandarez/semver-action@vlatest
     - name: "Created tag"
