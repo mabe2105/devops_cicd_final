@@ -43,6 +43,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
+      - name: try before checkout
+        run: |
+          echo $(git tag -l)
+          git tag -l
+          echo $(git tag)
+          git tag
+
       - name: Checkout
         uses: actions/checkout@v2
       - name: Extract metadata for the Docker image
