@@ -1,25 +1,18 @@
-name: Python app
+name: Merge Request
 
-on:
-  push:
-    branches-ignore:
-    - 'feature_html'
-  # pull_request:
-  #   branches:
-  #   - 'main'
-
-permissions:
-  contents: read
+on: 
+  merge_request:
+    branch: [ main ]
 
 jobs:
-  build:
+
+  unit:
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./src
-
     strategy:
-      matrix:
+      matrix: 
         python-version: [ "3.10" ]
 
     steps:
@@ -27,7 +20,7 @@ jobs:
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
-
+      
     - name: Set up python ${{ matrix.python-version }}
       uses: actions/setup-python@v4
       with:
@@ -37,72 +30,16 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements-dev.txt
-
-    - name: Pylint check
-      run: |
-        pylint --errors-only shop_app
-
-  test:
-    needs: [build]
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./src
-
-    strategy:
-      matrix:
-        python-version: [ "3.10" ]
-
-    steps:
-    - name: Checkout python for test
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-
-    - name: Set up Python 3.x
-      uses: actions/setup-python@v4
-      with:
-        python-version: ${{ matrix.python-version }}
-
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements-dev.txt
-
+      
     - name: Unit-tests check + coverage
-      run: |
-        pytest --cov=shop_app tests/unit
-
-  deploy:
-    needs: [test]
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./src
-
-    steps:
-    - name: Checkout for deploy
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-
-    - name: ghcr.io build tag push
-      uses: mr-smithers-excellent/docker-build-push@v5.8
-      with:
-        image: mabe2105/devops_cicd_final/shop_app
-        addLatest: true
-        registry: ghcr.io
-        dockerfile: ./src/Dockerfile
-        username: ${{ secrets.GHCR_USER }}
-        password: ${{ secrets.GHCR_TOKEN }}
-
+      run: | 
+        pytest --cov=shop_app test/unit
+  
   e2e:
-    needs: [deploy]
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./src
-
     steps:
 
     - name: Checkout for deploy
@@ -150,5 +87,28 @@ jobs:
     - name: pytest e2e
       run: pytest ./tests/e2e/
 
-    - name: remove docker-compose
-      run: docker-compose -f ./tests/e2e/docker-compose.yml rm -fsv
+    #- name: remove docker-compose
+    #  run: docker-compose -f ./tests/e2e/docker-compose.yml rm -fsv
+
+  publish:
+    needs: [ unit, e2e]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./src
+
+    steps:
+    - name: Checkout for deploy
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: ghcr.io build tag push
+      uses: mr-smithers-excellent/docker-build-push@v5.8
+      with:
+        image: devops_cicd_final/shop_app
+        addLatest: true
+        registry: ghcr.io
+        dockerfile: ./src/Dockerfile
+        username: ${{ secrets.GHCR_USER }}
+        password: ${{ secrets.GHCR_TOKEN }}

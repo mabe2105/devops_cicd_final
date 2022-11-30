@@ -9,5 +9,11 @@ spec:
   containers:
     - name: shop-app
       image: ghcr.io/mabe2105/mabe2105/devops_cicd_final/shop_app:latest
+      env:
+      - name: MYSQL_HOST
+        # value: 192.168.49.2:32285
+        value: mysql-service
+      - name: MYSQL_PASSWORD
+        value: password
   imagePullSecrets:
     - name: regcred3
