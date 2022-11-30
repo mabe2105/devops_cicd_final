@@ -7,11 +7,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+
       - uses: actions/checkout@v3
+
       - name: Start DB
         run: |
           docker network create my-network
-          docker run -d --network my-network -e MYSQL_DATABASE=example -e MYSQL_USER=username -e MYSQL_PASSWORD=password MYSQL_RANDOM_ROOT_PASSWORD=yes -p 3306:3306 -v ${{ github.workspace }}/sql:/docker-entrypoint-initdb.d --name mysql mysql:8
+          docker run -d --network my-network -e MYSQL_DATABASE=example -e MYSQL_USER=username -e MYSQL_PASSWORD=password -e MYSQL_RANDOM_ROOT_PASSWORD=yes -p 3306:3306 -v ${{ github.workspace }}/sql:/docker-entrypoint-initdb.d --name mysql mysql:8
 
       - name: Build docker image
         run: docker build . --file ./src/Dockerfile --tag sql-db
