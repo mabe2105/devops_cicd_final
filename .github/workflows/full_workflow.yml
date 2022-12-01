@@ -3,10 +3,7 @@ name: Python app
 on:
   push:
     branches-ignore:
-    - 'feature_html'
-  # pull_request:
-  #   branches:
-  #   - 'main'
+    - 'main'
 
 permissions:
   contents: read
@@ -76,6 +73,7 @@ jobs:
   deploy:
     needs: [test]
     runs-on: ubuntu-latest
+    if: ${{ github.event.test.conclusion == 'success' }}
     defaults:
       run:
         working-directory: ./src
@@ -145,7 +143,7 @@ jobs:
         mysql -h 127.0.0.1 -u username -ppassword example < "./sql/0001-insert-data.sql"
         mysql -h 127.0.0.1 -u username -ppassword example < "./sql/0002-create-user.sql"
 
-    
+
 
     - name: pytest e2e
       run: pytest ./tests/e2e/
