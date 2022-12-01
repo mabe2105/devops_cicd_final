@@ -69,7 +69,7 @@ jobs:
     - name: Unit-tests check + coverage
       run: |
         pytest --cov=shop_app tests/unit
-        pytest ./tests/unit --cov --cov-fail-under=95
+        pytest ./tests/unit --cov --cov-fail-under=45
 
   deploy:
     needs: [test]
