@@ -38,4 +38,3 @@ jobs:
         dockerfile: ./src/Dockerfile
         username: ${{ secrets.GHCR_USER }}
         password: ${{ secrets.GHCR_TOKEN }}
-

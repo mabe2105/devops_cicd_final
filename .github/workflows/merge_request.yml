@@ -1,18 +1,18 @@
 name: Merge Request
 
-on: 
+on:
   pull_request:
     branch: [ main ]
 
 jobs:
 
-  unit:
+  linting:
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./src
     strategy:
-      matrix: 
+      matrix:
         python-version: [ "3.10" ]
 
     steps:
@@ -20,7 +20,7 @@ jobs:
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
-      
+
     - name: Set up python ${{ matrix.python-version }}
       uses: actions/setup-python@v4
       with:
@@ -30,11 +30,39 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements-dev.txt
-      
+    - name: Pylint check
+      run: |
+        pylint --errors-only shop_app
+
+  unit:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./src
+    strategy:
+      matrix:
+        python-version: [ "3.10" ]
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Set up python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements-dev.txt
+
     - name: Unit-tests check + coverage
-      run: | 
+      run: |
         pytest --cov=shop_app ./tests/unit
-  
+
   e2e:
     runs-on: ubuntu-latest
     defaults:
@@ -82,7 +110,7 @@ jobs:
         mysql -h 127.0.0.1 -u username -ppassword example < "./sql/0001-insert-data.sql"
         mysql -h 127.0.0.1 -u username -ppassword example < "./sql/0002-create-user.sql"
 
-    
+
 
     - name: pytest e2e
       run: pytest ./tests/e2e/

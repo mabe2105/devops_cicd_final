@@ -3,10 +3,7 @@ name: Python app
 on:
   push:
     branches-ignore:
-    - 'feature_html'
-  # pull_request:
-  #   branches:
-  #   - 'main'
+    - 'main'
 
 permissions:
   contents: read
@@ -72,6 +69,7 @@ jobs:
     - name: Unit-tests check + coverage
       run: |
         pytest --cov=shop_app tests/unit
+        pytest ./tests/unit --cov --cov-fail-under=45
 
   deploy:
     needs: [test]
@@ -145,10 +143,10 @@ jobs:
         mysql -h 127.0.0.1 -u username -ppassword example < "./sql/0001-insert-data.sql"
         mysql -h 127.0.0.1 -u username -ppassword example < "./sql/0002-create-user.sql"
 
-    
+
 
     - name: pytest e2e
       run: pytest ./tests/e2e/
 
-    - name: remove docker-compose
-      run: docker-compose -f ./tests/e2e/docker-compose.yml rm -fsv
+    #- name: remove docker-compose
+    #  run: docker-compose -f ./tests/e2e/docker-compose.yml rm -fsv
