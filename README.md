@@ -2,11 +2,14 @@
 
 A simple python flask application to host the best web app ever.
 
-After starting, you can access it on -
+FluxCD monitors this repo and updates the package with the latest version from the feature branches after a successful deployment.
+
+According to GitOps the pipeline will break if your tests are not up to par with coverage standards.
 
 # Requirements:
     Python 3.8+
-    Docker
+    Minikube
+    Docker & Docker-compose
 
 ### Application:
 
@@ -18,7 +21,7 @@ After starting, you can access it on -
 
 # Development setup
 
-1. ` python3 -m venv .venv && source .venv/bin/activate `
+1. `python3 -m venv .venv && source .venv/bin/activate `
 2. `pip3 install --upgrade pip`
 3. `pip3 install -r requirements-dev.txt`
 4. `pre-commit install`
@@ -40,7 +43,11 @@ If you want you can run tests or linting manually.
 
 - To run pre-commit: `pre-commit run --all-files`
 
-# Docker
+- To test with selenium go to src/tests/e2e and run `docker-compose up -d` then `pytest ./tests/e2e/`
+
+# Deployment
+
+## Docker
 
 Build from root folder
 
@@ -51,3 +58,13 @@ Build from root folder
 - `docker login ghcr.io`
 
 - `docker run -dp 5000:5000 ghcr.io/mabe2105/shop_app`
+
+## Minikube
+
+Go to src/k8s/
+
+- `kubectl apply -f create_pod.yml`
+
+- `kubectl expose pod shop-app-pod --selector "app=shop_app" --type=LoadBalancer --port=5000`
+
+- `minikube service shop-app-pod`
